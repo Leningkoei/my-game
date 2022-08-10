@@ -8,9 +8,9 @@
 
 #### fonts
 
-- [Cica]: https://github.com/miiton/Cica/releases/download/v5.0.3/Cica_v5.0.3.zip
+- Cica: https://github.com/miiton/Cica/releases/download/v5.0.3/Cica_v5.0.3.zip
 
-- [KFひま字]: https://www.kfstudio.net/download/1415/KFhimaji.zip
+- KFひま字: https://www.kfstudio.net/download/1415/KFhimaji.zip
 
 #### images
 
@@ -24,7 +24,7 @@
 
 ## Usage
 
-<img>.github/result.jpg</img>
+<img>./.github/result.jpg</img>
 
 ## Installation
 
