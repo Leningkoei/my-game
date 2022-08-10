@@ -1,0 +1,28 @@
+("quicklisp" .
+ (:class qlot/source/dist:source-dist
+  :initargs (:distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "2022-07-08"))
+("sdl2" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/lispgames/cl-sdl2.git")
+  :version "git-80410b514570ca06894675d4a2a5fc93287ea7b6"))
+("sdl2-image" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/lispgames/cl-sdl2-image.git")
+  :version "git-9c05c806286b66a5d9861ef829cfe68c4f3da077"))
+("sdl2-ttf" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/lispgames/cl-sdl2-ttf.git")
+  :version "git-6dd2df2fb3a79ec4f835e3bc882e60e8da039878"))
+("datafly" .
+ (:class qlot/source/github:source-github
+  :initargs (:repos "fukamachi/datafly" :ref nil :branch nil :tag nil)
+  :version "github-adece27fcbc4b5ea39ad1a105048b6b7166e3b0d"))
+("cl-ppcre" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2022-07-08"))
+("rove" .
+ (:class qlot/source/ql:source-ql
+  :initargs (:%version :latest)
+  :version "ql-2022-07-08"))

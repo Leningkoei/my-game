@@ -1,0 +1,6 @@
+git    sdl2       https://github.com/lispgames/cl-sdl2.git
+git    sdl2-image https://github.com/lispgames/cl-sdl2-image.git
+github sdl2-ttf   Failproofshark/cl-sdl2-ttf
+github datafly    fukamachi/datafly
+ql     cl-ppcre   :latest
+ql     rove
