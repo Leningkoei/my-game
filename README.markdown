@@ -24,7 +24,7 @@
 
 ## Usage
 
-<img src=".github/result.jpg />
+<img src=".github/result.jpg" />
 
 ## Installation
 
