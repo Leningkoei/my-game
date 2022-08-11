@@ -30,7 +30,7 @@
 
   - <img src=".github/result.jpg" />
 
-- ver 0.1.1
+- ver 0.2.0
 
   - Now you can use `h j k l space` to jump kiritan
 
