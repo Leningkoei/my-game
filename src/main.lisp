@@ -10,8 +10,8 @@
   ;; (:import-from :sdl2 :fill-rect)
   ;; (:import-from :sdl2 :map-rgb)
   ;; (:import-from :sdl2 :surface-format)
-  ;; (:import-from :sdl2 :scancode=)
-  ;; (:import-from :sdl2 :scancode-value)
+  (:import-from :sdl2 :scancode=)
+  (:import-from :sdl2 :scancode-value)
   (:import-from :sdl2 :push-event)
   (:import-from :sdl2 :scancode)
   (:import-from :sdl2 :set-render-draw-color)
@@ -43,6 +43,53 @@
   "src/assets/images/nc261519.png")
 (defparameter +image-kiritan-path+
   "src/assets/images/8026365.png")
+
+(defparameter +font-cica+        'to-avoid-warning)
+(defparameter +font-kfhm+        'to-avoid-warning)
+(defparameter +image-background+ 'to-avoid-warning)
+(defparameter +image-kiritan+    'to-avoid-warning)
+
+(defun init-renderer (renderer)
+  (let ((font-cica        +font-cica+)
+        (font-kfhm        +font-kfhm+)
+        (image-background +image-background+)
+        (image-kiritan    +image-kiritan+))
+    (render-clear renderer)
+    (render-image renderer image-background 0 0 :w 640 :h 480)
+    (render-image renderer image-kiritan 200 200 :clip (make-rect 0  0 32 32))
+    (render-image renderer image-kiritan 232 232 :clip (make-rect 0 32 32 32))
+    (render-image renderer image-kiritan 264 264 :clip (make-rect 0 64 32 32))
+    (render-image renderer image-kiritan 296 296 :clip (make-rect 0 96 32 32))
+    (render-print renderer font-cica "CicaフォントでHello, world!"
+                  :red 100 :green 100 :blue 200 :x 50 :y 100)
+    (render-print renderer font-kfhm "KFひま字フォントでHello, world!"
+                  :red 100 :green 200 :blue 100 :x 50 :y 150)
+    (render-present renderer)))
+
+(defun drew-renderer (renderer &key h j k l)
+  (let ((font-cica        +font-cica+)
+        (font-kfhm        +font-kfhm+)
+        (image-background +image-background+)
+        (image-kiritan    +image-kiritan+))
+    (render-clear renderer)
+    (render-image renderer image-background 0 0 :w 640 :h 480)
+    (render-image renderer image-kiritan
+                  200 (if h 168 200)
+                  :clip (make-rect 0  0 32 32))
+    (render-image renderer image-kiritan
+                  232 (if j 200 232)
+                  :clip (make-rect 0 32 32 32))
+    (render-image renderer image-kiritan
+                  264 (if k 232 264)
+                  :clip (make-rect 0 64 32 32))
+    (render-image renderer image-kiritan
+                  296 (if l 264 296)
+                  :clip (make-rect 0 96 32 32))
+    (render-print renderer font-cica "CicaフォントでHello, world!"
+                  :red 255 :green 100 :blue 200 :x 50 :y 100)
+    (render-print renderer font-kfhm "KFひま字フォントでHello, world!"
+                  :red 255 :green 200 :blue 100 :x 50 :y 150)
+    (render-present renderer)))
 
 (defun render-print (renderer font text
                     &key (red 0) (green 0) (blue 0) (alpha 255)
@@ -77,51 +124,32 @@
 (defun main ()
   (with-init (:video)
     (with-window (window :title "My GAME" :w 640 :h 480)
-      ;; (let ((screen (get-window-surface window)))
-      ;;   (fill-rect screen '() (map-rgb (surface-format screen) 100 250 200))
-      ;;   (update-window window)
-      ;;   (delay 5000))))
-      (with-renderer (renderer window :index -1
-                                      :flags '(:accelerated :presentvsync))
+      (with-renderer
+          (renderer window :index -1 :flags '(:accelerated :presentvsync))
         (with-init@sdl2-ttf
+            (defparameter +font-cica+ (open-font +font-cica-path+ 30))
+            (defparameter +font-kfhm+ (open-font +font-kfhm-path+ 30))
+            (defparameter +image-background+ (load-image +image-background-path+))
+            (defparameter +image-kiritan+ (load-image +image-kiritan-path+))
           (with-init@sdl2-image '(:png)
-            (let ((r 0) (g 0) (b 0)
-                  (font-cica        (open-font  +font-cica-path+ 30))
-                  (font-kfhm        (open-font  +font-kfhm-path+ 30))
-                  (image-background (load-image +image-background-path+))
-                  (image-kiritan    (load-image +image-kiritan-path+)))
-              (with-event-loop (:method :poll)
-                (:keyup (:keysym keysym)
-                        ;; (if (scancode= (scancode-value keysym) :scancode-escape)
-                        (if (eql (scancode keysym) :scancode-escape)
-                            (push-event :quit)
-                            (setf r 0 g 0 b 0)))
-                (:keydown (:keysym keysym)
-                          (case (scancode keysym)
-                            (:scancode-r (setf r 255 g 0   b 0))
-                            (:scancode-g (setf r 0   g 255 b 0))
-                            (:scancode-b (setf r 0   g 0   b 255))))
-                (:idle ()
-                       (set-render-draw-color renderer r g b 255)
-                       (render-clear renderer)
-                       (render-image renderer image-background
-                                     0 0 :w 640 :h 480)
-                       (render-image renderer image-kiritan
-                                     200 200 :clip (make-rect 0  0 32 32))
-                       (render-image renderer image-kiritan
-                                     232 232 :clip (make-rect 0 32 32 32))
-                       (render-image renderer image-kiritan
-                                     264 264 :clip (make-rect 0 64 32 32))
-                       (render-image renderer image-kiritan
-                                     296 296 :clip (make-rect 0 96 32 32))
-                       (render-print renderer font-cica
-                                     "CicaフォントでHello, world!"
-                                     :red 100 :green 100 :blue 200
-                                     :x 50 :y 100)
-                       (render-print renderer font-kfhm
-                                     "KFひま字フォントでHello, world!"
-                                     :red 100 :green 200 :blue 100
-                                     :x 50 :y 150)
-                       (render-present renderer))
-                (:quit () 't))))))))
+            (init-renderer renderer)
+            (with-event-loop (:method :poll)
+              (:keyup (:keysym keysym)
+                      (cond
+                        ((scancode= (scancode-value keysym) :scancode-escape)
+                         (push-event :quit))
+                        ('t (init-renderer renderer))))
+              (:keydown (:keysym keysym)
+                        (when (scancode= (scancode-value keysym) :scancode-h)
+                          (drew-renderer renderer :h 't))
+                        (when (scancode= (scancode-value keysym) :scancode-j)
+                          (drew-renderer renderer :j 't))
+                        (when (scancode= (scancode-value keysym) :scancode-k)
+                          (drew-renderer renderer :k 't))
+                        (when (scancode= (scancode-value keysym) :scancode-l)
+                          (drew-renderer renderer :l 't))
+                        (when
+                            (scancode= (scancode-value keysym) :scancode-space)
+                          (drew-renderer renderer :h 't :j 't :k 't :l 't)))
+              (:quit () 't)))))))
   'done)

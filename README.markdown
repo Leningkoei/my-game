@@ -24,7 +24,17 @@
 
 ## Usage
 
-<img src=".github/result.jpg" />
+- ver 0.1.0
+
+  - static graph
+
+  - <img src=".github/result.jpg" />
+
+- ver 0.1.1
+
+  - Now you can use `h j k l space` to jump kiritan
+
+  - <img src=".github/result-kai.jpg" />
 
 ## Installation
 
