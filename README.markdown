@@ -32,7 +32,7 @@
 
 - ver 0.2.0
 
-  - Now you can use `h j k l space` to jump kiritan
+  - Now you can use `h` `j` `k` `l` `space` to jump kiritan
 
   - <img src=".github/result-kai.jpg" />
 
