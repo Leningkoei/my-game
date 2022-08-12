@@ -36,53 +36,36 @@
 ;; blah blah blah.
 
 (defparameter +font-cica-path+
-  "src/assets/fonts/Cica/Cica-Regular.ttf")
+  "assets/fonts/Cica/Cica-Regular.ttf")
 (defparameter +font-kfhm-path+
-  "src/assets/fonts/KFhimaji/KFhimaji/KFhimaji.otf")
+  "assets/fonts/KFhimaji/KFhimaji/KFhimaji.otf")
 (defparameter +image-background-path+
-  "src/assets/images/nc261519.png")
-(defparameter +image-kiritan-path+
-  "src/assets/images/8026365.png")
+  "assets/images/background.png")
+(defparameter +image-kiritans-path+
+  "assets/images/kiritans.png")
 
 (defparameter +font-cica+        'to-avoid-warning)
 (defparameter +font-kfhm+        'to-avoid-warning)
 (defparameter +image-background+ 'to-avoid-warning)
-(defparameter +image-kiritan+    'to-avoid-warning)
-
-(defun init-renderer (renderer)
-  (let ((font-cica        +font-cica+)
-        (font-kfhm        +font-kfhm+)
-        (image-background +image-background+)
-        (image-kiritan    +image-kiritan+))
-    (render-clear renderer)
-    (render-image renderer image-background 0 0 :w 640 :h 480)
-    (render-image renderer image-kiritan 200 200 :clip (make-rect 0  0 32 32))
-    (render-image renderer image-kiritan 232 232 :clip (make-rect 0 32 32 32))
-    (render-image renderer image-kiritan 264 264 :clip (make-rect 0 64 32 32))
-    (render-image renderer image-kiritan 296 296 :clip (make-rect 0 96 32 32))
-    (render-print renderer font-cica "CicaフォントでHello, world!"
-                  :red 100 :green 100 :blue 200 :x 50 :y 100)
-    (render-print renderer font-kfhm "KFひま字フォントでHello, world!"
-                  :red 100 :green 200 :blue 100 :x 50 :y 150)
-    (render-present renderer)))
+(defparameter +image-kiritans+   'to-avoid-warning)
 
 (defun drew-renderer (renderer &key h j k l)
   (let ((font-cica        +font-cica+)
         (font-kfhm        +font-kfhm+)
         (image-background +image-background+)
-        (image-kiritan    +image-kiritan+))
+        (image-kiritans   +image-kiritans+))
     (render-clear renderer)
     (render-image renderer image-background 0 0 :w 640 :h 480)
-    (render-image renderer image-kiritan
+    (render-image renderer image-kiritans
                   200 (if h 168 200)
                   :clip (make-rect 0  0 32 32))
-    (render-image renderer image-kiritan
+    (render-image renderer image-kiritans
                   232 (if j 200 232)
                   :clip (make-rect 0 32 32 32))
-    (render-image renderer image-kiritan
+    (render-image renderer image-kiritans
                   264 (if k 232 264)
                   :clip (make-rect 0 64 32 32))
-    (render-image renderer image-kiritan
+    (render-image renderer image-kiritans
                   296 (if l 264 296)
                   :clip (make-rect 0 96 32 32))
     (render-print renderer font-cica "CicaフォントでHello, world!"
@@ -90,6 +73,9 @@
     (render-print renderer font-kfhm "KFひま字フォントでHello, world!"
                   :red 255 :green 200 :blue 100 :x 50 :y 150)
     (render-present renderer)))
+
+(defun init-renderer (renderer)
+  (drew-renderer renderer))
 
 (defun render-print (renderer font text
                     &key (red 0) (green 0) (blue 0) (alpha 255)
@@ -127,11 +113,11 @@
       (with-renderer
           (renderer window :index -1 :flags '(:accelerated :presentvsync))
         (with-init@sdl2-ttf
-            (defparameter +font-cica+ (open-font +font-cica-path+ 30))
-            (defparameter +font-kfhm+ (open-font +font-kfhm-path+ 30))
-            (defparameter +image-background+ (load-image +image-background-path+))
-            (defparameter +image-kiritan+ (load-image +image-kiritan-path+))
+          (defparameter +font-cica+ (open-font +font-cica-path+ 30))
+          (defparameter +font-kfhm+ (open-font +font-kfhm-path+ 30))
           (with-init@sdl2-image '(:png)
+            (defparameter +image-background+ (load-image +image-background-path+))
+            (defparameter +image-kiritans+   (load-image +image-kiritans-path+))
             (init-renderer renderer)
             (with-event-loop (:method :poll)
               (:keyup (:keysym keysym)

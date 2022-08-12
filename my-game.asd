@@ -1,7 +1,7 @@
 (in-package :asdf)
 
 (defsystem "my-game"
-  :version "0.2.0"
+  :version "0.2.1"
   :author "leningkoei"
   :license ""
   :depends-on ("sdl2"

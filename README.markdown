@@ -24,17 +24,25 @@
 
 ## Usage
 
-- ver 0.1.0
-
-  - static graph
-
-  - <img src=".github/result.jpg" />
-
 - ver 0.2.0
 
   - Now you can use `h` `j` `k` `l` `space` to jump kiritan
 
   - <img src=".github/result-kai.jpg" />
+
+  - ver 0.2.1
+
+    - fix `load-image` location
+      from inside `with-init@sdl2-ttf`
+      to inside `with-init@sdl2-image`
+
+    - mv assests directory from inside src to root directory
+
+- ver 0.1.0
+
+  - static graph
+
+  - <img src=".github/result.jpg" />
 
 ## Installation
 
